@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<canvas id="canvas" width="400" height="400" style="border:1px solid black;">
+		
+	</canvas>
+</body>
+<script type="text/javascript">
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+
+	// 数组
+	var arr = [
+		{"title":"第一季度","number":100,"color":"red"},
+		{"title":"第二季度","number":200,"color":"blue"},
+		{"title":"第三季度","number":300,"color":"green"},
+		{"title":"第四季度","number":400,"color":"yellow"}
+	];
+
+	// 开始角度和结束角度
+	var startAngle = 0;
+	var endAngle = 0;
+
+	/*
+		json格式数据：
+		var json = {
+			"name":"xiaomimng",
+			"age":28
+		}
+
+		json.age
+	*/
+
+	// 计算总数
+	var sum = 0;
+	for(var i = 0; i < arr.length; i++){
+		sum += arr[i].number;
+	}
+
+	for(var i = 0; i < arr.length; i++){
+		startAngle = endAngle;
+		endAngle += (arr[i].number/sum)*Math.PI*2;
+
+		// 开始
+		context.beginPath();
+		// 移动画笔位置
+		context.moveTo(200,200);
+		// 设置填充颜色
+		context.fillStyle = arr[i].color;
+		context.arc(200,200,100,startAngle,endAngle);
+
+		// --------绘制信息----------
+		context.rect(300,10 + i*30,20,20);
+		context.font = "18px 黑体";
+		context.fillText(arr[i].title, 325, 25 + i*30);
+
+		// 填充颜色
+		context.fill();
+		// 结束
+		context.closePath();		
+	}
+
+
+
+</script>
+</html>
